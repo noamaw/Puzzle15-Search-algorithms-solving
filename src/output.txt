@@ -1,0 +1,4 @@
+R-D-R
+Num: 10
+Cost: 2.5
+0.001 seconds.
