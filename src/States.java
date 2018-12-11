@@ -178,6 +178,10 @@ public class States {
 
 	}
 
+	/**
+	 * running the BFS algorithm with the start node in the argumented Queue.
+	 * @param q - queue of the nodes we will evaluate before declaring no solution exists
+	 */
 	private void startBFS(Queue<Node> q) {
 		Node cur;
 
@@ -203,6 +207,9 @@ public class States {
 		}
 	}
 
+	/**
+	 * running the DFID algorithm 
+	 */
 	private void startDFID() {
 		setCalcalatedStates(0);
 		int depth = 1;
@@ -217,6 +224,10 @@ public class States {
 		}
 	}
 
+	/*
+	 * Helper function.
+	 * running DFS to a certain depth each iteration 
+	 */
 	private Node DLS(Node cur, int depth) {
 		if ((depth == 0) && (checkGOAL(cur))) {
 			return cur;
@@ -239,6 +250,9 @@ public class States {
 		return null;
 	}
 
+	/*
+	 * running A-star algorithm
+	 */
 	private void startA_Star() {
 		NodeComparator comparator = new NodeComparator();
 		PriorityQueue<Node> PQ = new PriorityQueue<Node>(comparator);
@@ -305,6 +319,10 @@ public class States {
 		return;
 	}
 
+	/**
+	 * running the IDA-star algorithm 
+	 * @param stack with all nodes we would like to evaluate in this iteration
+	 */
 	private void startIDA_Star(Stack<Node> stack) {
 		Node current = null;
 		double min = this.Heuristic2(start);
@@ -355,6 +373,11 @@ public class States {
 		}
 	}
 	
+	/**
+	 * reversing the order of an array.
+	 * @param arr the Node-array we would like to reverse
+	 * @return new array with the node last as first and so on.
+	 */
 	private Node[] revArray(Node[] arr) {
 		int i = arr.length;
 		Node[] result = new Node[i];
@@ -368,6 +391,9 @@ public class States {
 		return result;
 	}
 
+	/**
+	 * running IDA-star (recursive type)
+	 */
 	private void startIDA_StarR(){
 		Node Start = this.start;
 		double temp = 0;
@@ -386,6 +412,7 @@ public class States {
 			threshold = temp;
 		}
 	}
+	
 	private double search1(Node node, double g, double threshold) {
 		this.calcalatedStates++;
 		double min = 0;
@@ -418,6 +445,10 @@ public class States {
 		return min; // return the minimum ‘f’ encountered greater than threshold
 	}
 
+	/**
+	 * running the DFBnB algorithm 
+	 * using a priorityQueue to get the best node to evaluate each iteration.
+	 */
 	private void startDFBnB() {
 		NodeComparator comparator = new NodeComparator();
 		PriorityQueue<Node> PQ = new PriorityQueue<Node>(comparator);
@@ -481,6 +512,7 @@ public class States {
 		}
 		return;
 	}
+	
 	
 	private void startDFBnB1(Stack<Node> stack) {
 		NodeComparator comparator = new NodeComparator();
@@ -560,6 +592,11 @@ public class States {
 		this.initial[position] = allTiles[num];
 	}
 
+	/**
+	 * creating the initial State from input.
+	 * @param s - the scanner of the input file. continue reading at the correct spot.
+	 * @param in - last read string.
+	 */
 	private void createInitial(Scanner s, String in) {
 		int num = 0, place = 0;
 		this.checkInit = new String[getN()][getM()];
@@ -582,6 +619,11 @@ public class States {
 		}
 	}
 
+	/**
+	 * creating the tiles from the input
+	 * @param s - the scanner of the input file. continue reading at the correct spot.
+	 * @param color - which color are the tiles we are creating now
+	 */
 	private void createTiles(Scanner s, double color) {
 		String in;
 		int num;
@@ -671,11 +713,21 @@ public class States {
 		}
 		return count;
 	}
-
+	
+	/**
+	 * helper function checks if current Node is Goal node per its "code"
+	 * @param cur Node to check
+	 * @return true - it is a Goal Node.
+	 * 			false - it is not a Goal Node.
+	 */
 	private boolean checkGOAL(Node cur) {
 		return cur.getCode().equals(this.getGoal());
 	}
 
+	/**
+	 * representation for the goal node using a String. 
+	 * (each tile has a letter and the word created is that nodes "code"
+	 */
 	private void setGoal() {
 		String g = "";
 		for (int i = 1; i < allTiles.length; i++) {
@@ -684,6 +736,12 @@ public class States {
 		this.goal = g + " ";
 	}
 
+	/**
+	 * 
+	 * finishing moves for calculation.
+	 * printing the important information
+	 * @param end solution Node we found
+	 */
 	private void FinishCalc(Node end) {
 		this.timer = System.currentTimeMillis() - this.timer;
 		double seconds = this.timer / 1000.0;
@@ -697,6 +755,10 @@ public class States {
 		System.out.println(seconds + " seconds.");
 	}
 
+	/**
+	 * finishing moves for calculation.
+	 * printing the important information
+	 */
 	private void FinishCalc() {
 		this.timer = System.currentTimeMillis() - this.timer;
 		double seconds = this.timer / 1000.0;
@@ -710,6 +772,9 @@ public class States {
 		System.out.println(seconds + " seconds.");
 	}
 
+	/**
+	 * case in which we didnt find a valid solution for the given problem.
+	 */
 	private void NoPath() {
 		this.timer = System.currentTimeMillis() - this.timer;
 		writer.println("no path");
